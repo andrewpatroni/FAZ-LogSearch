@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 
-import ssl, os, json, yaml, requests, argparse, logging, pprint
+from multiprocessing.connection import wait
+import ssl, os, json, sys, requests, argparse, logging, pprint
+from time import sleep
 
 ssl._create_default_https_context = ssl._create_unverified_context
 requests.packages.urllib3.disable_warnings() 
@@ -16,6 +18,8 @@ def main():
 
     url = 'https://%s/jsonrpc' % args.fortianalyzer
     headers = {'content-type': "application/json"}
+
+    searchoutput = os.path.join(sys.path[0] + 'search_output')
 
     #Login to FAZ and get session key
     authlogin = {
@@ -47,12 +51,17 @@ def main():
         "method": "add",
         "params": [
             {
+                "device": [
+                    {
+                        "devid": "All_FortiGate"
+                    }
+                ],
                 "apiver": 3,
                 "logtype": "traffic",
                 "time-order": "desc",
                 "time-range": {
-                    "end": "2022-04-05T13:00:00",
-                    "start": "2022-04-05T08:10:00",
+                    "end": "2022-04-05T14:01:00",
+                    "start": "2022-04-04T00:01:00",
                 },
                 "url": "/logview/adom/root/logsearch",
             }
@@ -63,7 +72,6 @@ def main():
     searchreq = requests.post(url, data=json.dumps(searchdata), headers=headers)
     searchdatajson = searchreq.json()
     task = searchdatajson['result']['tid']
-    print(task)
 
     #Log Search get task ID
     taskid = {
@@ -73,7 +81,7 @@ def main():
         "params": [
             {
             "apiver": 3,
-            "limit": 50,
+            "limit": 2,
             "offset": 0,
             "url": "/logview/adom/root/logsearch/%s" % task
             }
@@ -83,7 +91,12 @@ def main():
 
     taskidreq = requests.post(url, data=json.dumps(taskid), headers=headers)
     taskidjson = taskidreq.json()
-    pprint.pprint(taskidjson)
+    while taskidjson['result']['percentage'] < 100:
+        taskidreq = requests.post(url, data=json.dumps(taskid), headers=headers)
+        taskidjson = taskidreq.json()
+    
+    with open('%s.json' % (searchoutput), 'w') as search:
+        json.dump(taskidjson['result']['data'], search)
 
 
     #Logout of FAZ
