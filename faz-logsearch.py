@@ -58,10 +58,11 @@ def main():
                 ],
                 "apiver": 3,
                 "logtype": "traffic",
+                "filter": "srcip=10.100.92.16",
                 "time-order": "desc",
                 "time-range": {
-                    "end": "2022-04-05T14:01:00",
-                    "start": "2022-04-04T00:01:00",
+                    "end": "2022-04-05T15:58:00",
+                    "start": "2022-04-04T13:01:00",
                 },
                 "url": "/logview/adom/root/logsearch",
             }
@@ -72,7 +73,7 @@ def main():
     searchreq = requests.post(url, data=json.dumps(searchdata), headers=headers)
     searchdatajson = searchreq.json()
     task = searchdatajson['result']['tid']
-
+    print(task)
     #Log Search get task ID
     taskid = {
         "id": 3,
@@ -81,7 +82,7 @@ def main():
         "params": [
             {
             "apiver": 3,
-            "limit": 2,
+            "limit": 10,
             "offset": 0,
             "url": "/logview/adom/root/logsearch/%s" % task
             }
@@ -91,6 +92,7 @@ def main():
 
     taskidreq = requests.post(url, data=json.dumps(taskid), headers=headers)
     taskidjson = taskidreq.json()
+    pprint.pprint(taskidjson)
     while taskidjson['result']['percentage'] < 100:
         taskidreq = requests.post(url, data=json.dumps(taskid), headers=headers)
         taskidjson = taskidreq.json()
