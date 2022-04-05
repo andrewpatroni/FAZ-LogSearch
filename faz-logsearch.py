@@ -6,10 +6,18 @@ ssl._create_default_https_context = ssl._create_unverified_context
 requests.packages.urllib3.disable_warnings() 
 
 def main():
+    ################ MODIFY THESE VARIABLES #############################################################################
+    startdatetime = '2022-04-04T08:01:00'              # Enter the start date and time in this format YYYY-MM-DDTHH:MM:SS
+    enddatetime = '2022-04-05T16:01:00'                # Enter the end date and time in this format YYYY-MM-DDTHH:MM:SS
+    srcip = 'srcip=10.100.92.16'                       # Source IP address Filter (Leave blank for all)
+    dstip = 'dstip=8.8.8.8'                            # Destination IP address Filter (Leave blank for all)
+    lines = '20'                                       # How many lines to return
+    #####################################################################################################################
+
     parser = argparse.ArgumentParser()
     parser.add_argument('--fortianalyzer', default='jmahaffey-api-test.fortidemo.fortinet.com:10405', help='Firewall IP Address')
-    parser.add_argument('--user', default='', help='FAZ API User')
-    parser.add_argument('--password', default='', help='FAZ API User Password')
+    parser.add_argument('--user', default='jmahaffey', help='FAZ API User')
+    parser.add_argument('--password', default='SecurityFabric', help='FAZ API User Password')
     parser.add_argument('--logging', default='', help='Logging levels info, error, or debug')
     parser.add_argument('--devlist', default='address.csv', help='YAML/CSV file with list of approved devices.')
     args = parser.parse_args()
@@ -54,12 +62,12 @@ def main():
                 ],
                 "apiver": 3,
                 "logtype": "traffic",
-                "filter": "srcip=10.100.92.16",
-                "filter": "dstip=8.8.8.8",
+                "filter": "%s" % srcip,
+                "filter": "%s" % dstip,
                 "time-order": "desc",
                 "time-range": {
-                    "end": "2022-04-05T15:58:00",
-                    "start": "2022-04-04T13:01:00",
+                    "end": "%s" % enddatetime,
+                    "start": "%s" % startdatetime,
                 },
                 "url": "/logview/adom/root/logsearch",
             }
@@ -79,7 +87,7 @@ def main():
         "params": [
             {
             "apiver": 3,
-            "limit": 10,
+            "limit": '%s' % lines,
             "offset": 0,
             "url": "/logview/adom/root/logsearch/%s" % task
             }
