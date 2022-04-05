@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 from multiprocessing.connection import wait
-import ssl, os, json, sys, requests, argparse, logging, pprint
+import ssl, os, json, sys, requests, argparse, logging, csv
 from time import sleep
 
 ssl._create_default_https_context = ssl._create_unverified_context
@@ -99,6 +99,16 @@ def main():
     with open('search_output.json', 'w') as search:
         json.dump(taskidjson['result']['data'], search)
 
+    data_file = open('data_file.csv', 'w')
+    csv_writer = csv.writer(data_file)
+    count = 0
+    for log in taskidjson['result']['data']:
+        if count == 0:
+            header = log.keys()
+            csv_writer.writerow(header)
+            count += 1
+        csv_writer.writerow(log.values())
+    data_file.close()
 
     #Logout of FAZ
     try:
