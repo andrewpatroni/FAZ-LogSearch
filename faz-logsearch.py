@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
 
-from multiprocessing.connection import wait
-import ssl, os, json, sys, requests, argparse, logging, csv
-from time import sleep
+import ssl, json, requests, argparse, logging, csv
 
 ssl._create_default_https_context = ssl._create_unverified_context
 requests.packages.urllib3.disable_warnings() 
@@ -96,9 +94,7 @@ def main():
         taskidreq = requests.post(url, data=json.dumps(taskid), headers=headers)
         taskidjson = taskidreq.json()
     
-    with open('search_output.json', 'w') as search:
-        json.dump(taskidjson['result']['data'], search)
-
+    #Write logs to csv file
     data_file = open('data_file.csv', 'w')
     csv_writer = csv.writer(data_file)
     count = 0
