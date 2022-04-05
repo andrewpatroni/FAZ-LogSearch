@@ -49,7 +49,7 @@ def main():
             {
                 "device": [
                     {
-                        "devid": "All_FortiGate"
+                    "devid": "All_FortiGate"
                     }
                 ],
                 "apiver": 3,
