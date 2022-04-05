@@ -19,8 +19,6 @@ def main():
     url = 'https://%s/jsonrpc' % args.fortianalyzer
     headers = {'content-type': "application/json"}
 
-    searchoutput = os.path.join(sys.path[0] + 'search_output')
-
     #Login to FAZ and get session key
     authlogin = {
         "method": "exec",
@@ -44,7 +42,7 @@ def main():
         logging.error('Unable to login to FortiAnalyzer')
         exit()
 
-    #Log Search
+    #Log Search - Modify the filter key and time ranges
     searchdata = {
         "id": 2,
         "jsonrpc": "2.0",
@@ -59,6 +57,7 @@ def main():
                 "apiver": 3,
                 "logtype": "traffic",
                 "filter": "srcip=10.100.92.16",
+                "filter": "dstip=8.8.8.8",
                 "time-order": "desc",
                 "time-range": {
                     "end": "2022-04-05T15:58:00",
