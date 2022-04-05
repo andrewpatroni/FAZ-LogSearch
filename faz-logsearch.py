@@ -67,7 +67,7 @@ def main():
                 "url": "/logview/adom/root/logsearch",
             }
         ],
-        "session": sessionkey
+        "session": "%s" % sessionkey
         } 
 
     searchreq = requests.post(url, data=json.dumps(searchdata), headers=headers)
@@ -87,7 +87,7 @@ def main():
             "url": "/logview/adom/root/logsearch/%s" % task
             }
         ],
-        "session": sessionkey
+        "session": "%s" % sessionkey
         }
 
     taskidreq = requests.post(url, data=json.dumps(taskid), headers=headers)
@@ -110,7 +110,7 @@ def main():
                 "url": "/sys/logout"
                 }
             ],
-            "session": sessionkey,
+            "session": "%s" % sessionkey,
             "id": 4
             } 
 
