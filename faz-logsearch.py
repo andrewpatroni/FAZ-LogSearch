@@ -124,6 +124,5 @@ def main():
         logging.error('Unable to logout of FortiAnalyzer')
 
 
-
 if __name__ == '__main__':
     main()
