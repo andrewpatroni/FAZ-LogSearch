@@ -14,8 +14,9 @@ def main():
     lines = '20'                                       # How many lines to return
     #####################################################################################################################
 
+    # Arg Parser to add arguments at runtime (./faz-logsearch.py --fortianalyzer 192.168.101.10 --user test --password changeme)
     parser = argparse.ArgumentParser()
-    parser.add_argument('--fortianalyzer', default='jmahaffey-api-test.fortidemo.fortinet.com:10405', help='FortiAnalyzer IP Address')
+    parser.add_argument('--fortianalyzer', default='', help='FortiAnalyzer IP Address')
     parser.add_argument('--user', default='', help='FAZ API User')
     parser.add_argument('--password', default='', help='FAZ API User Password')
     args = parser.parse_args()
