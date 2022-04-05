@@ -73,7 +73,7 @@ def main():
     searchreq = requests.post(url, data=json.dumps(searchdata), headers=headers)
     searchdatajson = searchreq.json()
     task = searchdatajson['result']['tid']
-    print(task)
+
     #Log Search get task ID
     taskid = {
         "id": 3,
@@ -92,12 +92,12 @@ def main():
 
     taskidreq = requests.post(url, data=json.dumps(taskid), headers=headers)
     taskidjson = taskidreq.json()
-    pprint.pprint(taskidjson)
+
     while taskidjson['result']['percentage'] < 100:
         taskidreq = requests.post(url, data=json.dumps(taskid), headers=headers)
         taskidjson = taskidreq.json()
     
-    with open('%s.json' % (searchoutput), 'w') as search:
+    with open('search_output.json', 'w') as search:
         json.dump(taskidjson['result']['data'], search)
 
 
