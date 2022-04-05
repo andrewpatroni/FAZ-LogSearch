@@ -16,8 +16,8 @@ def main():
 
     parser = argparse.ArgumentParser()
     parser.add_argument('--fortianalyzer', default='jmahaffey-api-test.fortidemo.fortinet.com:10405', help='Firewall IP Address')
-    parser.add_argument('--user', default='jmahaffey', help='FAZ API User')
-    parser.add_argument('--password', default='SecurityFabric', help='FAZ API User Password')
+    parser.add_argument('--user', default='', help='FAZ API User')
+    parser.add_argument('--password', default='', help='FAZ API User Password')
     parser.add_argument('--logging', default='', help='Logging levels info, error, or debug')
     parser.add_argument('--devlist', default='address.csv', help='YAML/CSV file with list of approved devices.')
     args = parser.parse_args()
