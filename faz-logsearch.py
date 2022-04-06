@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
-import ssl, json, requests, argparse, logging, csv
+from multiprocessing.connection import wait
+import ssl, json, requests, argparse, logging, csv, time
 
 ssl._create_default_https_context = ssl._create_unverified_context
 requests.packages.urllib3.disable_warnings() 
@@ -101,8 +102,9 @@ def main():
     while taskidjson['result']['percentage'] < 100:
         taskidreq = requests.post(url, data=json.dumps(taskid), headers=headers)
         taskidjson = taskidreq.json()
-        print('Waiting on search to finish.')
-        
+        print('Waiting on search to finish.  Current percentage done is %s') % taskidjson['result']['percentage']
+        time.sleep(10)
+
     # Write logs to csv file
     data_file = open('data_file.csv', 'w')
     csv_writer = csv.writer(data_file)
