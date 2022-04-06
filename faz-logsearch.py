@@ -7,9 +7,9 @@ requests.packages.urllib3.disable_warnings()
 
 def main():
     ################ MODIFY THESE VARIABLES #############################################################################
+    adom = 'root'                                      # FortiAnalyzer ADOM
     startdatetime = '2022-04-04T08:01:00'              # Enter the start date and time in this format YYYY-MM-DDTHH:MM:SS
     enddatetime = '2022-04-05T16:01:00'                # Enter the end date and time in this format YYYY-MM-DDTHH:MM:SS
-    adom = 'root'                                      # FortiAnalyzer ADOM
     filter1 = 'srcip=10.100.92.16'                     # Filter variable such as source IP address Filter (Leave blank for all)
     filter2 = 'dstip=8.8.8.8'                          # Filter variable such as destination IP address Filter (Leave blank for all)
     lines = '20'                                       # How many lines to return
