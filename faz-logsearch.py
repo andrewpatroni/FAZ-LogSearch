@@ -9,8 +9,8 @@ def main():
     ################ MODIFY THESE VARIABLES #############################################################################
     startdatetime = '2022-04-04T08:01:00'              # Enter the start date and time in this format YYYY-MM-DDTHH:MM:SS
     enddatetime = '2022-04-05T16:01:00'                # Enter the end date and time in this format YYYY-MM-DDTHH:MM:SS
-    srcip = 'srcip=10.100.92.16'                       # Source IP address Filter (Leave blank for all)
-    dstip = 'dstip=8.8.8.8'                            # Destination IP address Filter (Leave blank for all)
+    filter1 = 'srcip=10.100.92.16'                     # Filter variable such as source IP address Filter (Leave blank for all)
+    filter2 = 'dstip=8.8.8.8'                          # Filter variable such as destination IP address Filter (Leave blank for all)
     lines = '20'                                       # How many lines to return
     #####################################################################################################################
 
@@ -61,8 +61,8 @@ def main():
                 ],
                 "apiver": 3,
                 "logtype": "traffic",
-                "filter": "%s" % srcip,
-                "filter": "%s" % dstip,
+                "filter": "%s" % filter1,
+                "filter": "%s" % filter2,
                 "time-order": "desc",
                 "time-range": {
                     "end": "%s" % enddatetime,
