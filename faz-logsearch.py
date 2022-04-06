@@ -54,21 +54,21 @@ def main():
         "method": "add",
         "params": [
             {
-                "device": [
-                    {
-                    "devid": "All_FortiGate"
-                    }
-                ],
-                "apiver": 3,
-                "logtype": "traffic",
-                "filter": "%s" % filter1,
-                "filter": "%s" % filter2,
-                "time-order": "desc",
-                "time-range": {
-                    "end": "%s" % enddatetime,
-                    "start": "%s" % startdatetime,
-                },
-                "url": "/logview/adom/root/logsearch",
+            "device": [
+                {
+                "devid": "All_FortiGate"
+                }
+            ],
+            "apiver": 3,
+            "logtype": "traffic",
+            "filter": "%s" % filter1,
+            "filter": "%s" % filter2,
+            "time-order": "desc",
+            "time-range": {
+                "end": "%s" % enddatetime,
+                "start": "%s" % startdatetime,
+            },
+            "url": "/logview/adom/root/logsearch",
             }
         ],
         "session": "%s" % sessionkey
