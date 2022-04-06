@@ -67,7 +67,7 @@ def main():
             "time-range": {
                 "end": "%s" % enddatetime,
                 "start": "%s" % startdatetime,
-            },
+                },
             "url": "/logview/adom/root/logsearch",
             }
         ],
