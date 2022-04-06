@@ -11,6 +11,7 @@ def main():
     enddatetime = '2022-04-05T16:01:00'                # Enter the end date and time in this format YYYY-MM-DDTHH:MM:SS
     filter1 = 'srcip=10.100.92.16'                     # Filter variable such as source IP address Filter (Leave blank for all)
     filter2 = 'dstip=8.8.8.8'                          # Filter variable such as destination IP address Filter (Leave blank for all)
+    adom = 'root'                                      # FortiAnalyzer ADOM
     lines = '20'                                       # How many lines to return
     #####################################################################################################################
 
@@ -68,7 +69,7 @@ def main():
                 "end": "%s" % enddatetime,
                 "start": "%s" % startdatetime,
             },
-            "url": "/logview/adom/root/logsearch",
+            "url": "/logview/adom/%s/logsearch" % adom,
             }
         ],
         "session": "%s" % sessionkey
@@ -88,7 +89,7 @@ def main():
             "apiver": 3,
             "limit": '%s' % lines,
             "offset": 0,
-            "url": "/logview/adom/root/logsearch/%s" % task
+            "url": "/logview/adom/%s/logsearch/%s" % (adom, task)
             }
         ],
         "session": "%s" % sessionkey
