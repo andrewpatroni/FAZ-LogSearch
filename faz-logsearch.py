@@ -101,7 +101,8 @@ def main():
     while taskidjson['result']['percentage'] < 100:
         taskidreq = requests.post(url, data=json.dumps(taskid), headers=headers)
         taskidjson = taskidreq.json()
-    
+        print('Waiting on search to finish.')
+        
     # Write logs to csv file
     data_file = open('data_file.csv', 'w')
     csv_writer = csv.writer(data_file)
