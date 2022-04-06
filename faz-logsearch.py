@@ -25,7 +25,7 @@ def main():
     url = 'https://%s/jsonrpc' % args.fortianalyzer
     headers = {'content-type': "application/json"}
 
-    #Login to FAZ and get session key
+    # Login to FAZ and get session key
     authlogin = {
         "method": "exec",
         "params": [
@@ -48,7 +48,7 @@ def main():
         logging.error('Unable to login to FortiAnalyzer')
         exit()
 
-    #Log Search - Modify the filter key and time ranges
+    # Log Search - Modify the filter key and time ranges
     searchdata = {
         "id": 2,
         "jsonrpc": "2.0",
@@ -79,7 +79,7 @@ def main():
     searchdatajson = searchreq.json()
     task = searchdatajson['result']['tid']
 
-    #Log Search get task ID
+    # Log Search get task ID
     taskid = {
         "id": 3,
         "jsonrpc": "2.0",
@@ -102,7 +102,7 @@ def main():
         taskidreq = requests.post(url, data=json.dumps(taskid), headers=headers)
         taskidjson = taskidreq.json()
     
-    #Write logs to csv file
+    # Write logs to csv file
     data_file = open('data_file.csv', 'w')
     csv_writer = csv.writer(data_file)
     count = 0
@@ -114,7 +114,7 @@ def main():
         csv_writer.writerow(log.values())
     data_file.close()
 
-    #Logout of FAZ
+    # Logout of FAZ
     try:
         authlogout = {
             "method": "exec",
