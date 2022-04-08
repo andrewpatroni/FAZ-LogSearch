@@ -42,7 +42,7 @@ def main():
         }
 
     try:
-        token = requests.post(url, data=json.dumps(authlogin), headers=headers)
+        token = requests.post(url, data=json.dumps(authlogin), headers=headers, verify=False)
         tokenjson = token.json()
         sessionkey = tokenjson['session']
     except:
@@ -76,7 +76,7 @@ def main():
         "session": "%s" % sessionkey
         } 
 
-    searchreq = requests.post(url, data=json.dumps(searchdata), headers=headers)
+    searchreq = requests.post(url, data=json.dumps(searchdata), headers=headers, verify=False)
     searchdatajson = searchreq.json()
     task = searchdatajson['result']['tid']
 
@@ -96,11 +96,11 @@ def main():
         "session": "%s" % sessionkey
         }
 
-    taskidreq = requests.post(url, data=json.dumps(taskid), headers=headers)
+    taskidreq = requests.post(url, data=json.dumps(taskid), headers=headers, verify=False)
     taskidjson = taskidreq.json()
 
     while taskidjson['result']['percentage'] < 100:
-        taskidreq = requests.post(url, data=json.dumps(taskid), headers=headers)
+        taskidreq = requests.post(url, data=json.dumps(taskid), headers=headers, verify=False)
         taskidjson = taskidreq.json()
         print('Waiting on search to finish.  Current percentage done is %s') % taskidjson['result']['percentage']
         time.sleep(10)
@@ -130,7 +130,7 @@ def main():
             "id": 4
             } 
 
-        requests.post(url, data=json.dumps(authlogout), headers=headers)
+        requests.post(url, data=json.dumps(authlogout), headers=headers, verify=False)
     except:
         logging.error('Unable to logout of FortiAnalyzer')
 
