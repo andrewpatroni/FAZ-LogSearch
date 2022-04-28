@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-from multiprocessing.connection import wait
 import ssl, json, requests, argparse, logging, csv, time
 
 ssl._create_default_https_context = ssl._create_unverified_context
